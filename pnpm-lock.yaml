@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ant-design/icons': ^4.7.0
   '@craco/craco': ^6.4.5
   '@testing-library/jest-dom': ^5.16.5
   '@testing-library/react': ^13.4.0
@@ -21,6 +22,7 @@ specifiers:
   web-vitals: ^2.1.4
 
 dependencies:
+  '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/4.7.0_biqbaboplfbrettd7655fr4n2y
   '@craco/craco': registry.npmmirror.com/@craco/craco/6.4.5_js7jdkmh5d3f3rcsdqhzydcu7u
   '@testing-library/jest-dom': registry.npmmirror.com/@testing-library/jest-dom/5.16.5
   '@testing-library/react': registry.npmmirror.com/@testing-library/react/13.4.0_biqbaboplfbrettd7655fr4n2y
