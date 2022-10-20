@@ -8,9 +8,13 @@
  */
 import styles from './index.module.scss'
 import { Button, Checkbox, Form, Input } from 'antd';
+import {useAppDispatch} from "@/store/hooks";
+import {login} from "@/store/festures/user-slice";
+import {LoginData} from "@/types/user";
 export default function Login() {
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
+    const dispatch = useAppDispatch()
+    const onFinish = (values: LoginData) => {
+        dispatch(login(values))
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -22,14 +26,14 @@ export default function Login() {
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
+                initialValues={{ remember: true, mobile: '13800000002', password: '123456' }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
                 <Form.Item
                     label="Username"
-                    name="username"
+                    name="mobile"
                     rules={[{ required: true, message: 'Please input your username!' }]}
                 >
                     <Input />

@@ -3,34 +3,34 @@
  * @Date: 2022-06-17 22:01:05
  * @LastEditors: CHENJIE
  * @LastEditTime: 2022-10-20 16:54:23
- * @FilePath: \hrss-react-ts\src\utils\http.ts
+ * @FilePath: \hrss-react-ts\src\utils\request.ts
  * @Description:
- * Copyright (c) 2022 by chenjie, All Rights Reserved.
  */
 import axios from 'axios'
 import store from '@/store'
 import { customHistory } from '@/utils/history'
 import { message } from 'antd'
-const baseURL = process.env.REACT_APP_URL
-const http = axios.create({
+const baseURL = process.env.REACT_APP_API
+console.log(baseURL);
+const request = axios.create({
   baseURL,
   timeout: 5000,
 })
 // 请求拦截器
-http.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
     const { login: { token } } = store.getState()
     token && (config.headers!.Authorization = `Bearer ${token}`)
     return config
   },
   (e) => {
-    Promise.reject(e)
+    return  Promise.reject(e)
   }
 )
 // 响应拦截器
-http.interceptors.response.use(
+request.interceptors.response.use(
   (res) => {
-    return res
+    return res.data
   },
   (e) => {
     if (!e.response) {
@@ -47,4 +47,4 @@ http.interceptors.response.use(
     return Promise.reject(e)
   }
 )
-export default http 
+export default request

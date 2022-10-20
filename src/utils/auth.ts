@@ -7,22 +7,31 @@
  * @Description: auth
  * Copyright (c) 2022 by chenjie, All Rights Reserved.
  */
-// import type { ToKen } from "@/types/data"
 
-// const TOKEN_KEY = 'geek-h5-token'
-// // 获取 token 
-// /**
-//  * 
-//  * 因为 token 存储的是 {token,refresh_token} 形式的对象
-//  *  所以此处设置的默认值也应该设置为 对象 格式 所以使用'{}' 
-//  */
-// export const getToken = ():ToKen => JSON.parse(sessionStorage.getItem(TOKEN_KEY) ?? '{}')
-// // 清除 token
+import Cookies from 'js-cookie'
+const TokenKey = 'hr-saas-token'
 
-// export const clearToken = () => sessionStorage.removeItem(TOKEN_KEY)
-// // 存储 token
-// export const setToken = (token: ToKen) => {
-//     sessionStorage.setItem(TOKEN_KEY, JSON.stringify(token
-//     ))
-// }
+const timeKey = 'hr-sass-time-key' // 用来作为时间戳存储的key
+
+export function getToken() {
+    return Cookies.get(TokenKey)
+}
+
+export function setToken(token:string) {
+    return Cookies.set(TokenKey, token)
+}
+
+export function removeToken() {
+    return Cookies.remove(TokenKey)
+}
+
+export function setTimeStamp() {
+    // 设置当前最新的时间戳
+    // Date.now()  new Date.getTime()
+    Cookies.set(timeKey, Date.now()+'')
+}
+
+export function getTimeStamp() {
+    return Cookies.get(timeKey)
+}
 

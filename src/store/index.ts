@@ -4,10 +4,10 @@
  * @LastEditors: CHENJIE
  * @LastEditTime: 2022-10-20 16:34:13
  * @FilePath: \hrss-react-ts\src\store\index.ts
- * @Description: 
+ * @Description:
  */
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import loginSlice from "./festures/login-slice";
+import loginSlice from "./festures/user-slice";
 const store = configureStore({
     reducer: {
         login: loginSlice
