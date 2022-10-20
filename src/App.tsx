@@ -6,14 +6,14 @@
  * @FilePath: \hrss-react-ts\src\App.tsx
  * @Description: App
  */
-import { HashRouter } from "react-router-dom";
-
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { customHistory } from '@/utils/history'
 import Router from './routes/inedx';
 function App() {
   return (
-    <HashRouter>
+    <HistoryRouter history={customHistory} >
       <Router />
-    </HashRouter>
+    </HistoryRouter>
   );
 }
 
