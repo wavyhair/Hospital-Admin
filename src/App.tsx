@@ -2,16 +2,18 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 11:36:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-20 14:32:20
+ * @LastEditTime: 2022-10-20 15:58:53
  * @FilePath: \hrss-react-ts\src\App.tsx
  * @Description: App
  */
-import Layout from '@/pages/Layout'
+import { HashRouter } from "react-router-dom";
+
+import Router from './routes/inedx';
 function App() {
   return (
-    <div className="App">
-      <Layout />
-    </div>
+    <HashRouter>
+      <Router />
+    </HashRouter>
   );
 }
 

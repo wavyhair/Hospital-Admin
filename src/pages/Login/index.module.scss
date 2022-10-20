@@ -1,0 +1,14 @@
+.root {
+    background-color: blueviolet;
+    height: 100%;
+    width: 100%;
+
+    :global {
+        .ant-form {
+            width: 50vw;
+            margin: auto;
+        }
+
+        // 所有子节点的样式，都放在此处，因为是在 global 中，所以，此处的类名不会被 CSSModules 处理
+    }
+}
