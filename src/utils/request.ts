@@ -2,7 +2,7 @@
  * @Author: chenjie
  * @Date: 2022-06-17 22:01:05
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-20 16:54:23
+ * @LastEditTime: 2022-10-21 10:28:54
  * @FilePath: \hrss-react-ts\src\utils\request.ts
  * @Description:
  */
@@ -24,7 +24,7 @@ request.interceptors.request.use(
     return config
   },
   (e) => {
-    return  Promise.reject(e)
+    return Promise.reject(e)
   }
 )
 // 响应拦截器

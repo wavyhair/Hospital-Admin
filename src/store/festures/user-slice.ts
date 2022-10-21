@@ -2,14 +2,14 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-20 16:32:27
+ * @LastEditTime: 2022-10-21 10:56:44
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
 import request from "@/utils/request";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {LoginData, LoginRes} from "@/types/user";
-import {getToken, setToken} from "@/utils/auth";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { LoginData, LoginRes } from "@/types/user";
+import { getToken, setToken } from "@/utils/auth";
 
 
 enum API {
@@ -20,8 +20,8 @@ enum API {
 
 
 export const login = createAsyncThunk('user/login', async (data: LoginData) => {
-    const res = await request.post(API.login, data)
-    return res.data
+    const res = await request<any, LoginRes>({ method: 'post', url: API.login, data })
+    return res
 })
 
 interface UsetState {
@@ -38,10 +38,10 @@ export const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(login.fulfilled, (state, {payload}) => {
-            console.log(payload);
-            state.token = payload
-            setToken( payload)
+        builder.addCase(login.fulfilled, (state, { payload }) => {
+            console.log('p', payload);
+            state.token = payload.data
+            setToken(payload.data)
         })
     }
 })
