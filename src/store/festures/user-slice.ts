@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-21 10:56:44
+ * @LastEditTime: 2022-10-21 13:35:57
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
@@ -10,7 +10,7 @@ import request from "@/utils/request";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginData, LoginRes } from "@/types/user";
 import { getToken, setToken } from "@/utils/auth";
-
+import { customHistory } from '@/utils/history'
 
 enum API {
     login = '/sys/login',
@@ -39,9 +39,9 @@ export const userSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder.addCase(login.fulfilled, (state, { payload }) => {
-            console.log('p', payload);
             state.token = payload.data
             setToken(payload.data)
+            customHistory.push('/dashboard')
         })
     }
 })
