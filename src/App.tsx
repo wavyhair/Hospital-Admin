@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 11:36:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-20 15:58:53
+ * @LastEditTime: 2022-10-23 09:29:03
  * @FilePath: \hrss-react-ts\src\App.tsx
  * @Description: App
  */
@@ -12,7 +12,7 @@ import Router from './routes/inedx';
 function App() {
   return (
     <HistoryRouter history={customHistory} >
-      <Router />
+        <Router />
     </HistoryRouter>
   );
 }
