@@ -2,12 +2,12 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-21 13:35:57
+ * @LastEditTime: 2022-10-23 17:31:30
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
 import request from "@/utils/request";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginData, LoginRes } from "@/types/user";
 import { getToken, setToken } from "@/utils/auth";
 import { customHistory } from '@/utils/history'
@@ -41,7 +41,7 @@ export const userSlice = createSlice({
         builder.addCase(login.fulfilled, (state, { payload }) => {
             state.token = payload.data
             setToken(payload.data)
-            customHistory.push('/dashboard')
+            customHistory.push('/home/dashboard')
         })
     }
 })

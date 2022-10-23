@@ -1,0 +1,14 @@
+.root {
+    // 根节点自己的样式
+    padding: 28px 28px;
+
+    :global {
+
+        // 所有子节点的样式，都放在此处，因为是在 global 中，所以，此处的类名不会被 CSSModules 处理
+        .addbtn {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+    }
+}
