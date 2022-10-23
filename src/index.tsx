@@ -11,7 +11,8 @@ import store from './store';
 import { Provider } from 'react-redux'
 import App from './App';
 
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css'; // issue下有描述原因： react-script 升级到 5.0.0 之后，所有通过 create-react-app 创建的项目，引入 antd.css 之后都会看到这个警告
+import 'antd/dist/antd.min.css'
 import './styles/index.css'
 
 import reportWebVitals from './reportWebVitals';

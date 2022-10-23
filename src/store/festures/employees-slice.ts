@@ -26,6 +26,9 @@ interface GetEmployeeListParams {
     size: number
 }
 
+/**
+ * 获取员工列表
+ */
 export const getEmployeeList = createAsyncThunk('employees/getEmployeeList', async (params: GetEmployeeListParams) => {
     const res = await request<any, EmployeesListRes>({ url: API.getEmployeeList, params })
     return res.data
