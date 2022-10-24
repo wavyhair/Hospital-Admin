@@ -7,10 +7,12 @@
  * @Description:
  */
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import  employeesSlice  from "./festures/employees-slice";
 import loginSlice from "./festures/user-slice";
 const store = configureStore({
     reducer: {
-        login: loginSlice
+        login: loginSlice,
+        employees: employeesSlice
     }
 })
 export type AppDispatch = typeof store.dispatch;
