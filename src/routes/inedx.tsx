@@ -10,6 +10,9 @@
 import Login from '@/pages/Login'
 import Layout from '@/pages/Layout'
 import { useRoutes, Navigate } from "react-router-dom"
+export const asyncRouter = [
+    
+]
 export const rootRouter = [
     {
         path: "/",
