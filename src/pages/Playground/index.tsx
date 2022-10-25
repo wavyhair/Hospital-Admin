@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-24 10:57:31
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-25 17:01:04
+ * @LastEditTime: 2022-10-25 17:22:27
  * @FilePath: \hrss-react-ts\src\pages\Playground\index.tsx
  * @Description: 
  */
@@ -10,13 +10,7 @@ import ReactDOM from 'react-dom/client';
 
 import { useEffect, useState } from "react"
 const Playground: React.FC = () => {
-    const unmount = () => {
-        // ReactDOM.unmountComponentAtNode(document.getElementById('root') as Element)
-        const root = ReactDOM.createRoot(
-            document.getElementById('root') as HTMLElement
-        );
-        root.render(<div></div>)
-    }
+
     const [count, setCount] = useState(0)
     const [num, setNum] = useState(0)
     // useEffect(() => {
@@ -53,7 +47,7 @@ const Playground: React.FC = () => {
         return () => clearInterval(timer)
     }, [])
     return (
-        <div>
+        <>
             <div>
                 <span>{count}</span>
                 <button onClick={() => setCount(count + 1)}>CountAdd</button>
@@ -62,9 +56,8 @@ const Playground: React.FC = () => {
             <div>
                 <span>{num}</span>
                 <button onClick={() => setNum(num + 1)}>NumAdd</button>
-                <button onClick={unmount}>unmount</button>
             </div>
-        </div>
+        </>
     )
 }
 export default Playground
