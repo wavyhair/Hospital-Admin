@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-25 15:12:45
+ * @LastEditTime: 2022-10-25 17:01:29
  * @FilePath: \hrss-react-ts\src\routes\inedx.tsx
  * @Description: routes
  */

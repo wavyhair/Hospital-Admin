@@ -2,13 +2,21 @@
  * @Author: CHENJIE
  * @Date: 2022-10-24 10:57:31
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-25 10:49:24
+ * @LastEditTime: 2022-10-25 17:01:04
  * @FilePath: \hrss-react-ts\src\pages\Playground\index.tsx
  * @Description: 
  */
-import { useEffect, useState } from "react"
+import ReactDOM from 'react-dom/client';
 
+import { useEffect, useState } from "react"
 const Playground: React.FC = () => {
+    const unmount = () => {
+        // ReactDOM.unmountComponentAtNode(document.getElementById('root') as Element)
+        const root = ReactDOM.createRoot(
+            document.getElementById('root') as HTMLElement
+        );
+        root.render(<div></div>)
+    }
     const [count, setCount] = useState(0)
     const [num, setNum] = useState(0)
     // useEffect(() => {
@@ -35,15 +43,14 @@ const Playground: React.FC = () => {
         *      清理函数会在组件卸载时以及下一次副作用回调函数调用的时候执行，用于清除上一次的副作用。
              *     如果依赖项为空数组，那么会在组件卸载时会执行。相当于组件的componetWillUnmount
          */
-        window.addEventListener('resize', () => {
-            console.log(' resize')
-        })
-        setInterval(() => {
+        // window.addEventListener('resize', () => {
+        //     console.log(' resize')
+        // })
+        let timer = setInterval(() => {
+            setNum(num => num + 1)
             console.log('我是定时器')
         }, 1000)
-        return () => {
-            console.log('return')
-        }
+        return () => clearInterval(timer)
     }, [])
     return (
         <div>
@@ -55,6 +62,7 @@ const Playground: React.FC = () => {
             <div>
                 <span>{num}</span>
                 <button onClick={() => setNum(num + 1)}>NumAdd</button>
+                <button onClick={unmount}>unmount</button>
             </div>
         </div>
     )
