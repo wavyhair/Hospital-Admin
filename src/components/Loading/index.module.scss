@@ -1,0 +1,16 @@
+.root {
+
+    // 根节点自己的样式
+
+
+    :global {
+        .ant-spin {
+            display: block;
+            line-height: 500px;
+        }
+
+        // 所有子节点的样式，都放在此处，因为是在 global 中，所以，此处的类名不会被 CSSModules 处理
+
+
+    }
+}

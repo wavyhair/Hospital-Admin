@@ -2,18 +2,18 @@
  * @Author: CHENJIE
  * @Date: 2022-10-22 21:37:39
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-23 17:51:17
+ * @LastEditTime: 2022-10-25 10:27:15
  * @FilePath: \hrss-react-ts\src\pages\Employees\index.tsx
  * @Description: Employees
  */
 import EmployeesEnum from "@/constant/employees";
-import type {Employee} from '@/types/employees'
+import type { Employee } from '@/types/employees'
 import styles from './index.module.scss'
-import {Button, Card, Col, Row, Switch, Table, Tag} from 'antd';
-import type {ColumnsType} from 'antd/es/table';
-import {useAppDispatch, useAppSelector} from '@/store/hooks';
-import {useEffect, useRef} from 'react';
-import {getEmployeeList, selectEmployeeList} from '@/store/festures/employees-slice';
+import { Button, Card, Col, Row, Switch, Table, Tag } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useEffect, useRef } from 'react';
+import { getEmployeeList, selectEmployeeList } from '@/store/festures/employees-slice';
 
 export default function Employees() {
     const dispatch = useAppDispatch()
@@ -27,7 +27,7 @@ export default function Employees() {
 
     useEffect(() => {
         dispatch(getEmployeeList(params.current))
-    }, [params, dispatch])
+    }, [dispatch])
     /**
      * 分页
      */
@@ -62,7 +62,7 @@ export default function Employees() {
             title: '聘用形式',
             dataIndex: 'formOfEmployment',
             key: 'formOfEmployment',
-            render:value => EmployeesEnum.hireType.find(item=>item.id===value)?.value ?? '未知'
+            render: value => EmployeesEnum.hireType.find(item => item.id === value)?.value ?? '未知'
         },
         {
             title: '部门',
@@ -78,7 +78,7 @@ export default function Employees() {
             title: '状态',
             dataIndex: 'enableState',
             key: 'enableState',
-            render: value => <Switch defaultChecked={value === 1} disabled/>
+            render: value => <Switch defaultChecked={value === 1} disabled />
         },
     ];
 
@@ -109,7 +109,7 @@ export default function Employees() {
                         pageSize: params.current.size,
                         total: employees.total,
                         onChange: onPageChange
-                    }}/>
+                    }} />
             </Card>
             {/* table e */}
 
