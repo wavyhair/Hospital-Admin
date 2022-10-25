@@ -2,11 +2,10 @@
  * @Author: CHENJIE
  * @Date: 2022-10-24 10:57:31
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-25 17:22:27
+ * @LastEditTime: 2022-10-25 17:24:13
  * @FilePath: \hrss-react-ts\src\pages\Playground\index.tsx
  * @Description: 
  */
-import ReactDOM from 'react-dom/client';
 
 import { useEffect, useState } from "react"
 const Playground: React.FC = () => {
