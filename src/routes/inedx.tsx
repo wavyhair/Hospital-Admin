@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-25 17:01:29
+ * @LastEditTime: 2022-10-26 11:42:40
  * @FilePath: \hrss-react-ts\src\routes\inedx.tsx
  * @Description: routes
  */
@@ -49,15 +49,15 @@ export const rootRouter = [
         element: <Layout />,
         children: [
             {
-                path: '/home/dashboard',
+                path: 'dashboard',
                 element: load(Dashboard)
             },
             {
-                path: '/home/setting',
+                path: 'setting',
                 element: load(Setting)
             },
             {
-                path: '/home/employees',
+                path: 'employees',
                 element: load(Employees)
             },
 

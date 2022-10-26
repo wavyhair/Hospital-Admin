@@ -1,15 +1,15 @@
 /*
  * @Autor:jiea
  * Date: 2022-10-23 22:20
- * @LastEditors: Huhuuuu
- * @LastEditTime: 2022-10-23 22:20
- * @FilePath: src/constant
+ * @LastEditors: CHENJIE
+ * @LastEditTime: 2022-10-26 13:33:50
+ * @FilePath: \hrss-react-ts\src\constant\employees.ts
  * @Description: ...
  * IDE:WebStorm
 */
 // 员工
-export default {
-    // 聘用形式
+const employees = {
+    // 聘用形式 
     hireType: [
         {
             id: 1,
@@ -426,4 +426,5 @@ export default {
         }
     ]
 }
+export default employees
 
