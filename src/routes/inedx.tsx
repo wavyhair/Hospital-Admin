@@ -2,14 +2,14 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-26 11:42:40
+ * @LastEditTime: 2022-10-27 13:59:17
  * @FilePath: \hrss-react-ts\src\routes\inedx.tsx
  * @Description: routes
  */
 import Login from '@/pages/Login'
 import Layout from '@/pages/Layout'
 import { useRoutes, Navigate } from "react-router-dom"
-import { FC, lazy, Suspense } from "react";
+import { Component, FC, lazy, PureComponent, Suspense } from "react";
 import Loading from '@/components/Loading';
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Setting = lazy(() => import('@/pages/Setting'))
@@ -20,7 +20,7 @@ const NotFound = lazy(() => import('@/pages/404'))
 export const asyncRouter = [
 
 ]
-const load = (Comp: FC) => {
+const load = (Comp: FC | React.ElementType) => {
     return (
         // 因为路由懒加载，组件需要一段网络请求时间才能加载并渲染
         // 在组件还未渲染时，fallback就生效，来渲染一个加载进度条效果
