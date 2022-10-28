@@ -2,20 +2,24 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-27 13:59:17
+ * @LastEditTime: 2022-10-28 13:17:18
  * @FilePath: \hrss-react-ts\src\routes\inedx.tsx
  * @Description: routes
  */
 import Login from '@/pages/Login'
 import Layout from '@/pages/Layout'
 import { useRoutes, Navigate } from "react-router-dom"
-import { Component, FC, lazy, PureComponent, Suspense } from "react";
+import { FC, lazy, Suspense } from "react";
 import Loading from '@/components/Loading';
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Setting = lazy(() => import('@/pages/Setting'))
 const Employees = lazy(() => import('@/pages/Employees'))
 const Playground = lazy(() => import('@/pages/Playground'))
 const NotFound = lazy(() => import('@/pages/404'))
+const Effect = lazy(() => import('@/pages/Playground/components/effect-play'))
+const Purecom = lazy(() => import('@/pages/Playground/components/purecom-play'))
+const Memo = lazy(() => import('@/pages/Playground/components/memo-play'))
+const UseMemo = lazy(() => import('@/pages/Playground/components/usememo-play'))
 
 export const asyncRouter = [
 
@@ -42,7 +46,25 @@ export const rootRouter = [
     },
     {
         path: "/playground",
-        element: load(Playground),
+        element: <Playground />,
+        children: [
+            {
+                path: 'effect',
+                element: load(Effect)
+            },
+            {
+                path: 'purecom',
+                element: load(Purecom)
+            },
+            {
+                path: 'Memocom',
+                element: load(Memo)
+            },
+            {
+                path: 'useMemo',
+                element: load(UseMemo)
+            }
+        ]
     },
     {
         path: "/home",
