@@ -6,18 +6,21 @@
  * @FilePath: \hrss-react-ts\src\pages\Employees\index.tsx
  * @Description: Employees
  */
+import EmployeesModule from './components/employees-module'
 import EmployeesEnum from "@/constant/employees";
-import type { Employee } from '@/types/employees'
+import type {Employee} from '@/types/employees'
 import styles from './index.module.scss'
-import { Button, Card, Col, Row, Switch, Table, Tag } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useEffect, useRef } from 'react';
-import { getEmployeeList, selectEmployeeList } from '@/store/festures/employees-slice';
+import {Button, Card, Col, Row, Switch, Table, Tag, Modal} from 'antd';
+import type {ColumnsType} from 'antd/es/table';
+import {useAppDispatch, useAppSelector} from '@/store/hooks';
+import React, {useEffect, useRef, useCallback,useState} from 'react';
+import {getEmployeeList, selectEmployeeList} from '@/store/festures/employees-slice';
 
-export default function Employees() {
+const Employees = React.memo(() => {
     const dispatch = useAppDispatch()
     const employees = useAppSelector(selectEmployeeList)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [modalTitle, setModalTitle] = useState('')
     const data: Employee[] = employees.rows
     const params = useRef({
         page: 1,
@@ -36,6 +39,13 @@ export default function Employees() {
         params.current.size = pageSize
         dispatch(getEmployeeList(params.current))
     }
+    /**
+     * 新增员工
+     */
+    const handleAdd = useCallback(() => {
+        setModalTitle('新增')
+        setIsModalOpen(true)
+    }, [])
     const columns: ColumnsType<Employee> = [
         {
             title: '序号',
@@ -78,7 +88,7 @@ export default function Employees() {
             title: '状态',
             dataIndex: 'enableState',
             key: 'enableState',
-            render: value => <Switch defaultChecked={value === 1} disabled />
+            render: value => <Switch defaultChecked={value === 1} disabled/>
         },
     ];
 
@@ -91,7 +101,7 @@ export default function Employees() {
                         <Tag color="processing">共{employees.total}条记录</Tag>
                     </Col>
                     <Col className='addbtn' span={12}>
-                        <Button type="primary">新增员工</Button>
+                        <Button type="primary" onClick={handleAdd}>新增员工</Button>
                     </Col>
                 </Row>
             </Card>
@@ -109,10 +119,17 @@ export default function Employees() {
                         pageSize: params.current.size,
                         total: employees.total,
                         onChange: onPageChange
-                    }} />
+                    }}/>
             </Card>
             {/* table e */}
 
+            {/*  子组件 s  */}
+            <Modal title={modalTitle} open={isModalOpen} footer={null}>
+                <EmployeesModule />
+            </Modal>
+            {/*  子组件 e  */}
         </div>
     )
-}
+
+})
+export default Employees

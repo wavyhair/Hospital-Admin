@@ -6,16 +6,20 @@
  * @FilePath: \hrss-react-ts\src\store\festures\employees-slice.ts
  * @Description: employees-slice.ts
  */
-import type { EmployeesList, EmployeesListRes } from "@/types/employees";
+import type {EmployeesList, EmployeesListRes} from "@/types/employees";
 import request from "@/utils/request";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "..";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {RootState} from "..";
+
 enum API {
-    getEmployeeList = '/sys/user'
+    getEmployeeList = '/sys/user',
+    addEmployee = 'addEmployee'
 }
+
 interface initState {
     employeesList: EmployeesList
 }
+
 const initialState: initState = {
     employeesList: {} as EmployeesList
 }
@@ -30,18 +34,26 @@ interface GetEmployeeListParams {
  * 获取员工列表
  */
 export const getEmployeeList = createAsyncThunk('employees/getEmployeeList', async (params: GetEmployeeListParams) => {
-    const res = await request<any, EmployeesListRes>({ url: API.getEmployeeList, params })
+    const res = await request<any, EmployeesListRes>({url: API.getEmployeeList, params})
     return res.data
 })
+
+/**
+ * 新增员工
+ */
+export const addEmployee = createAsyncThunk('employees/addEmployee', async (data) => {
+    await request<any>({method:'post',url:API.addEmployee,data})
+})
+
 export const employeesSlice = createSlice({
     name: 'employees',
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getEmployeeList.fulfilled,(state,{payload})=>{
+        builder.addCase(getEmployeeList.fulfilled, (state, {payload}) => {
             state.employeesList = payload
         })
     },
 })
 export default employeesSlice.reducer
-export const selectEmployeeList = (state:RootState)=>state.employees.employeesList
+export const selectEmployeeList = (state: RootState) => state.employees.employeesList
