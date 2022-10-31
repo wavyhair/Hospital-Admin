@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-23 11:40:35
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-23 17:42:55
+ * @LastEditTime: 2022-10-31 21:59:01
  * @FilePath: \hrss-react-ts\src\types\employees.d.ts
  * @Description: employees
  */
@@ -28,8 +28,30 @@ interface Employee {
     level: string
     staffPhoto: string
 }
+
 interface EmployeesList {
-    total:number
-    rows:Employee[]
+    total: number
+    rows: Employee[]
+}
+export type depts ={
+    id: string
+    id: string
+    pid: string
+    companyId: string
+    name: string
+    code: string
+    managerId: null
+    manager: string
+    introduce: string
+    createTime: null
+    children?:depts
+}
+export type Department = {
+    companyManage: string
+    companyId: string
+    companyName: string
+    companyManage: string
+    depts:depts[]
 }
 export type EmployeesListRes = ApiResponse<EmployeesList>
+export type DepartmentRes = ApiResponse<Department>
