@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-23 11:31:48
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-31 21:49:49
+ * @LastEditTime: 2022-11-01 14:58:17
  * @FilePath: \hrss-react-ts\src\store\festures\employees-slice.ts
  * @Description: employees-slice.ts
  */
@@ -13,7 +13,7 @@ import { RootState } from "..";
 
 enum API {
     getEmployeeList = '/sys/user',
-    addEmployee = 'addEmployee',
+    addEmployee = '/sys/user',
     getDepts = '/company/department'
 }
 
@@ -44,13 +44,22 @@ export const getEmployeeList = createAsyncThunk('employees/getEmployeeList', asy
 /**
  * 新增员工
  */
-export const addEmployee = createAsyncThunk('employees/addEmployee', async (data) => {
+interface addEmployeeParams {
+    username: string
+    mobile: string
+    formatEmployment: number
+    workNumber: string
+    departmentName: string
+    timeOfEntry: string
+    correctionTime: string
+}
+export const addEmployee = createAsyncThunk('employees/addEmployee', async (data: addEmployeeParams) => {
     await request<any>({ method: 'post', url: API.addEmployee, data })
 })
 
 // 获取部门数据
-export const getDepts = createAsyncThunk('employees/getDepts',async()=>{
-    const res = await request<any,DepartmentRes>({url:API.getDepts})
+export const getDepts = createAsyncThunk('employees/getDepts', async () => {
+    const res = await request<any, DepartmentRes>({ url: API.getDepts })
     return res.data
 })
 
@@ -62,9 +71,9 @@ export const employeesSlice = createSlice({
         builder.addCase(getEmployeeList.fulfilled, (state, { payload }) => {
             state.employeesList = payload
         })
-        .addCase(getDepts.fulfilled,(state,{payload})=>{
-            state.depts = payload
-        })
+            .addCase(getDepts.fulfilled, (state, { payload }) => {
+                state.depts = payload
+            })
     },
 })
 export default employeesSlice.reducer

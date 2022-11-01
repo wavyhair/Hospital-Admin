@@ -2,19 +2,20 @@
  * @Author: CHENJIE
  * @Date: 2022-10-22 21:37:39
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-25 10:27:15
+ * @LastEditTime: 2022-11-01 16:42:50
  * @FilePath: \hrss-react-ts\src\pages\Employees\index.tsx
  * @Description: Employees
  */
+import dayjs from 'dayjs';
 import EmployeesModule from './components/employees-module'
 import EmployeesEnum from "@/constant/employees";
-import type {Employee} from '@/types/employees'
+import type { Employee } from '@/types/employees'
 import styles from './index.module.scss'
-import {Button, Card, Col, Row, Switch, Table, Tag, Modal} from 'antd';
-import type {ColumnsType} from 'antd/es/table';
-import {useAppDispatch, useAppSelector} from '@/store/hooks';
-import React, {useEffect, useRef, useCallback,useState} from 'react';
-import {getEmployeeList, selectEmployeeList} from '@/store/festures/employees-slice';
+import { Button, Card, Col, Row, Switch, Table, Tag, Modal } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
+import { getEmployeeList, selectEmployeeList } from '@/store/festures/employees-slice';
 
 const Employees = React.memo(() => {
     const dispatch = useAppDispatch()
@@ -46,6 +47,12 @@ const Employees = React.memo(() => {
         setModalTitle('新增')
         setIsModalOpen(true)
     }, [])
+    // 關閉
+    const close = useCallback(() => {
+        setModalTitle('')
+        setIsModalOpen(false)
+        dispatch(getEmployeeList(params.current))
+    }, [dispatch])
     const columns: ColumnsType<Employee> = [
         {
             title: '序号',
@@ -83,12 +90,13 @@ const Employees = React.memo(() => {
             title: '入职时间',
             dataIndex: 'timeOfEntry',
             key: 'timeOfEntry',
+            render: value => dayjs(value).format('YYYY-MM-DD HH:mm:ss')
         },
         {
             title: '状态',
             dataIndex: 'enableState',
             key: 'enableState',
-            render: value => <Switch defaultChecked={value === 1} disabled/>
+            render: value => <Switch defaultChecked={value === 1} disabled />
         },
     ];
 
@@ -119,13 +127,13 @@ const Employees = React.memo(() => {
                         pageSize: params.current.size,
                         total: employees.total,
                         onChange: onPageChange
-                    }}/>
+                    }} />
             </Card>
             {/* table e */}
 
             {/*  子组件 s  */}
-            <Modal title={modalTitle} open={isModalOpen} footer={null}>
-                <EmployeesModule />
+            <Modal destroyOnClose title={modalTitle} open={isModalOpen} onCancel={close} footer={null} bodyStyle={{ width: '70%' }}>
+                <EmployeesModule close={close} />
             </Modal>
             {/*  子组件 e  */}
         </div>

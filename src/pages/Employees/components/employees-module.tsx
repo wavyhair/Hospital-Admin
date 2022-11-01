@@ -2,81 +2,68 @@
  * @Autor:jiea
  * Date: 2022-10-29 20:59
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-31 22:10:14
+ * @LastEditTime: 2022-11-01 16:54:00
  * @FilePath: \hrss-react-ts\src\pages\Employees\components\employees-module.tsx
  * @Description: ...
  * IDE:WebStorm
 */
 import EmployeeEnum from '@/constant/employees'
-import { getDepts, selectDepts } from '@/store/festures/employees-slice';
+import { addEmployee, getDepts, selectDepts } from '@/store/festures/employees-slice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { transListToTreeData } from '@/utils';
-import { Button, Form, Input, Select, DatePicker, Tree } from 'antd'
-import type { DataNode, TreeProps } from 'antd/es/tree';
-import React, { useEffect, useState } from 'react'
+import { Button, Form, Input, Select, DatePicker, Tree, Space, message } from 'antd'
+import type { TreeProps } from 'antd/es/tree';
+import React, { useCallback, useEffect, useState } from 'react'
 const fieldNames = {
-    title: 'companyName',
-    key: 'id'
+    title: 'name',
+    key: 'id',
+    children: 'children'
 }
-const treeData: DataNode[] = [
-    {
-        title: 'parent 1',
-        key: '0-0',
-        children: [
-            {
-                title: 'parent 1-0',
-                key: '0-0-0',
-                disabled: true,
-                children: [
-                    {
-                        title: 'leaf',
-                        key: '0-0-0-0',
-                        disableCheckbox: true,
-                    },
-                    {
-                        title: 'leaf',
-                        key: '0-0-0-1',
-                    },
-                ],
-            },
-            {
-                title: 'parent 1-1',
-                key: '0-0-1',
-                children: [{ title: <span style={{ color: '#1890ff' }}>sss</span>, key: '0-0-1-0' }],
-            },
-        ],
-    },
-];
-const EmployeesModule: React.FC = function () {
+interface Props {
+    close: () => void
+}
+const EmployeesModule: React.FC<Props> = function ({ close }) {
     const dispatch = useAppDispatch()
-
+    const tempDepts = useAppSelector(selectDepts)
+    const [depts, setDepts] = useState()
+    const [showTree, setShowTree] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [form] = Form.useForm()
     // 提交
-    const onFinish = (form: any) => {
+    const onFinish = async (form: any) => {
+        setLoading(true)
         const values = {
             ...form,
             'timeOfEntry': form['timeOfEntry'].format('YYYY-MM-DD'),
             'correctionTime': form['correctionTime'].format('YYYY-MM-DD')
         }
-        console.log(values);
+        await dispatch(addEmployee(values))
+        message.success('新增成功')
+        close()
     }
     // 获取部门数据
     useEffect(() => {
         dispatch(getDepts())
     }, [dispatch])
-    const tempDepts = useAppSelector(selectDepts)
-    const [depts, setDepts] = useState()
+
     // 部门格式化
     useEffect(() => {
-        if(tempDepts?.depts?.length){
+        if (tempDepts?.depts?.length) {
             const result = transListToTreeData(tempDepts.depts, '')
             setDepts(result)
         }
     }, [tempDepts])
-    const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-        console.log('selected', selectedKeys, info);
+    // 显示部门树
+    const handleFocus = useCallback(() => {
+        setShowTree(true)
+    }, [])
+    // 树结点点击
+    const onSelect: TreeProps['onSelect'] = (selectedKeys, info: any) => {
+        form.setFieldValue('departmentName', info.node.name)
+        setShowTree(false)
     };
-
     return (<Form
+        form={form}
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -95,7 +82,13 @@ const EmployeesModule: React.FC = function () {
         <Form.Item
             label="手机号"
             name="mobile"
-            rules={[{ required: true, message: 'Please input your mobile!' }]}
+            rules={[
+                { required: true, message: 'Please input your mobile!' },
+                {
+                    pattern: /^1[3-9]\d{9}$/,
+                    message: '手机号格式不正确',
+                    type: 'string'
+                }]}
         >
             <Input />
         </Form.Item>
@@ -109,7 +102,7 @@ const EmployeesModule: React.FC = function () {
         <Form.Item label="聘用形式" name="formOfEmployment">
             <Select>
                 {EmployeeEnum.hireType.map(item => {
-                    return <Select.Option value={item.id}>{item.value}</Select.Option>
+                    return <Select.Option value={item.id} key={item.id}>{item.value}</Select.Option>
                 })}
             </Select>
         </Form.Item>
@@ -121,11 +114,17 @@ const EmployeesModule: React.FC = function () {
             <Input />
         </Form.Item>
 
-        <Form.Item label="部门" name="departmentName">
-            <Tree
-                onSelect={onSelect}
-                treeData={treeData}
-            />
+        <Form.Item label="部门" >
+            <Form.Item name="departmentName" noStyle><Input onFocus={handleFocus} /></Form.Item>
+
+            {
+                showTree &&
+                <Tree
+                    onSelect={onSelect}
+                    treeData={depts}
+                    fieldNames={fieldNames}
+                />
+            }
         </Form.Item>
         <Form.Item
             label="转正时间"
@@ -136,9 +135,15 @@ const EmployeesModule: React.FC = function () {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-                Submit
-            </Button>
+            <Space>
+                <Button onClick={close} loading={loading}>
+                    Cancle
+                </Button>
+                <Button type="primary" htmlType="submit" loading={loading} >
+                    Submit
+                </Button>
+            </Space>
+
         </Form.Item>
     </Form>
     )
