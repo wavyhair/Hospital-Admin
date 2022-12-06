@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-23 17:31:30
+ * @LastEditTime: 2022-12-06 21:05:11
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
@@ -35,7 +35,7 @@ const initialState: UsetState = {
 
 export const userSlice = createSlice({
     name: 'user',
-    initialState,
+    initialState, 
     reducers: {},
     extraReducers(builder) {
         builder.addCase(login.fulfilled, (state, { payload }) => {
