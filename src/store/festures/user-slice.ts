@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 15:53:24
+ * @LastEditTime: 2022-12-08 16:18:47
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
@@ -23,17 +23,25 @@ export const login = createAsyncThunk('user/login', async (data: LoginData) => {
     return res
 })
 export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
-    console.log(' 3')
     const result = await request<any, ReqGetUserInfoResponse>({ method: 'get', url: API.getUserInfo })
-    console.log('result', result)
+    return result.data
 })
 
 interface UsetState {
-    token: string
+    token: string,
+    avatar: string,
+    name: string,
+    roles?: string[],
+    routes?: string[],
 }
 
 const initialState: UsetState = {
-    token: getToken() || ''
+    token: getToken() || '',
+    avatar: '',
+    name: '',
+    roles: [],
+    routes: []
+
 }
 
 
@@ -46,6 +54,11 @@ export const userSlice = createSlice({
             state.token = payload.data
             setToken(payload.data)
         })
+            .addCase(getUserInfo.fulfilled, (state, { payload }) => {
+                state.avatar = payload.avatar
+                state.name = payload.name
+                state.routes = payload.routes
+            })
     }
 })
 export default userSlice.reducer
