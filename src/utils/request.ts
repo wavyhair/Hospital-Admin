@@ -2,7 +2,7 @@
  * @Author: chenjie
  * @Date: 2022-06-17 22:01:05
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 17:10:45
+ * @LastEditTime: 2022-12-08 17:23:18
  * @FilePath: \hrss-react-ts\src\utils\request.ts
  * @Description:
  */
@@ -11,7 +11,6 @@ import store from '@/store'
 import { customHistory } from '@/utils/history'
 import { message } from 'antd'
 const baseURL = process.env.REACT_APP_API
-console.log(baseURL);
 const request = axios.create({
   baseURL,
   timeout: 5000,

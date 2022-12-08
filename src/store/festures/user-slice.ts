@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 16:18:47
+ * @LastEditTime: 2022-12-08 17:22:13
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
@@ -37,7 +37,7 @@ interface UsetState {
 }
 
 const initialState: UsetState = {
-    token: getToken() || '',
+    token: localStorage.getItem('hrss_react_key') || '',
     avatar: '',
     name: '',
     roles: [],
@@ -49,11 +49,17 @@ const initialState: UsetState = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setToken: (state, action) => {
+            const token = action.payload;
+            state.token = token
+            localStorage.setItem('hrss_react_key', token)
+        }
+    },
     extraReducers(builder) {
         builder.addCase(login.fulfilled, (state, { payload }) => {
             state.token = payload.data
-            setToken(payload.data)
+            localStorage.setItem('hrss_react_key', payload.data)
         })
             .addCase(getUserInfo.fulfilled, (state, { payload }) => {
                 state.avatar = payload.avatar
