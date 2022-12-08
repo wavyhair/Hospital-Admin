@@ -2,7 +2,7 @@
  * @Author: chenjie
  * @Date: 2022-06-17 22:01:05
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-21 10:28:54
+ * @LastEditTime: 2022-12-08 16:05:04
  * @FilePath: \hrss-react-ts\src\utils\request.ts
  * @Description:
  */
@@ -20,7 +20,7 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     const { login: { token } } = store.getState()
-    token && (config.headers!.Authorization = `Bearer ${token}`)
+    token && (config.headers!.token = token)
     return config
   },
   (e) => {
