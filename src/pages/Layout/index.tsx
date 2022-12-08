@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-22 21:51:23
+ * @LastEditTime: 2022-12-08 16:58:28
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -27,7 +27,7 @@ export default function App() {
         {
             key: '/home/dashboard',
             icon: <DashboardOutlined />,
-            label:<Link to="/home/dashboard">首页</Link>,
+            label: <Link to="/home/dashboard">首页</Link>,
         },
         {
             key: '/home/setting',
@@ -44,17 +44,16 @@ export default function App() {
     return (
         <div className={styles.root}>
             <Layout>
-                <Sider trigger={null} collapsible collapsed={collapsed}>
-                    <div className="logo" />
+                <Sider theme='light' trigger={null} collapsible collapsed={collapsed}>
+                    <div />
                     <Menu
-                        theme="dark"
                         mode="inline"
                         defaultSelectedKeys={[defaultSelectedKeys]}
                         items={items}
                     />
                 </Sider>
-                <Layout className="site-layout">
-                    <Header className="site-layout-background" style={{ padding: 0 }}>
+                <Layout>
+                    <Header style={{ padding: 0, background: '#fff' }}>
                         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: 'trigger',
                             onClick: () => setCollapsed(!collapsed),
