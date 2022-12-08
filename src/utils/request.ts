@@ -2,7 +2,7 @@
  * @Author: chenjie
  * @Date: 2022-06-17 22:01:05
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 16:05:04
+ * @LastEditTime: 2022-12-08 17:10:45
  * @FilePath: \hrss-react-ts\src\utils\request.ts
  * @Description:
  */
@@ -19,7 +19,7 @@ const request = axios.create({
 // 请求拦截器
 request.interceptors.request.use(
   (config) => {
-    const { login: { token } } = store.getState()
+    const { user: { token } } = store.getState()
     token && (config.headers!.token = token)
     return config
   },

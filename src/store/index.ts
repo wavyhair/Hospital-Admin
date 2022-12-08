@@ -2,16 +2,16 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:20:39
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-20 16:34:13
+ * @LastEditTime: 2022-12-08 17:09:16
  * @FilePath: \hrss-react-ts\src\store\index.ts
  * @Description:
  */
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import  employeesSlice  from "./festures/employees-slice";
-import loginSlice from "./festures/user-slice";
+import employeesSlice from "./festures/employees-slice";
+import userSlice from "./festures/user-slice";
 const store = configureStore({
     reducer: {
-        login: loginSlice,
+        user: userSlice,
         employees: employeesSlice
     }
 })

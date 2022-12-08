@@ -11,6 +11,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginData, LoginRes, ReqGetUserInfoResponse } from "@/types/user";
 import { getToken, setToken } from "@/utils/auth";
 import { customHistory } from '@/utils/history'
+import { RootState } from "..";
 
 enum API {
     login = '/admin/acl/index/login',
@@ -62,3 +63,5 @@ export const userSlice = createSlice({
     }
 })
 export default userSlice.reducer
+// 暴露用于读取当前状态数据的select函数
+export const selectUser = (state: RootState) => state.user

@@ -21,14 +21,8 @@ const Role = lazy(() => import('@/pages/Role'))
 const Permision = lazy(() => import('@/pages/Permision'))
 const RoleAuth = lazy(() => import('@/pages/RoleAuth'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
-const Playground = lazy(() => import('@/pages/Playground'))
 const NotFound = lazy(() => import('@/pages/404'))
-const Effect = lazy(() => import('@/pages/Playground/components/effect-play'))
-const Purecom = lazy(() => import('@/pages/Playground/components/purecom-play'))
-const Memo = lazy(() => import('@/pages/Playground/components/memo-play'))
-const UseMemo = lazy(() => import('@/pages/Playground/components/usememo-play'))
 
-export const asyncRouter = []
 const load = (Comp: FC | React.ElementType) => {
     return (
         // 因为路由懒加载，组件需要一段网络请求时间才能加载并渲染
