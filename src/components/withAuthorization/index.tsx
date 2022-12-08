@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 17:15:40
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 17:15:45
+ * @LastEditTime: 2022-12-08 17:31:33
  * @FilePath: \hrss-react-ts\src\components\withAuthorization\index.tsx
  * @Description: 
  */
@@ -59,7 +59,7 @@ function withAuthorization(WrappedComponent: FC) { // FunctionComponent
             }
 
             // 还没有登陆, 分发请求获取用户信息的异步action
-
+            console.log(' @@')
             dispatch(getUserInfo());
 
             // 在请求过程中, 先显示loading效果 

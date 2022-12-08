@@ -2,14 +2,13 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 17:22:13
+ * @LastEditTime: 2022-12-08 17:29:55
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
 import request from "@/utils/request";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginData, LoginRes, ReqGetUserInfoResponse } from "@/types/user";
-import { getToken, setToken } from "@/utils/auth";
 import { customHistory } from '@/utils/history'
 import { RootState } from "..";
 
@@ -69,5 +68,8 @@ export const userSlice = createSlice({
     }
 })
 export default userSlice.reducer
+export const { setToken } = userSlice.actions
+
+
 // 暴露用于读取当前状态数据的select函数
 export const selectUser = (state: RootState) => state.user
