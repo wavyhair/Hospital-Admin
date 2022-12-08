@@ -2,8 +2,8 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 17:15:40
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 17:31:33
- * @FilePath: \hrss-react-ts\src\components\withAuthorization\index.tsx
+ * @LastEditTime: 2022-12-08 21:36:40
+ * @FilePath: \hrss-react-ts\src\components\WithAuthorization\index.tsx
  * @Description: 
  */
 import { FC } from "react";
