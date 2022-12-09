@@ -10,6 +10,7 @@ import {
     ShopOutlined
 } from '@ant-design/icons'
 import EmptyLayout from '@/components/EmptyLayout'
+import { SRoutes } from './filterRouter'
 const HospitalSchedule = lazy(() => import('@/pages/HospitalSchedule'))
 const HospitalSet = lazy(() => import('@/pages/HospitalSet'))
 const AddOrUpdateHospital = lazy(() => import('@/pages/AddOrUpdateHospital'))
@@ -80,7 +81,7 @@ export const anyRoute = [
 ]
 
 // 动态路由
-export const allAsyncRoutes = [
+export const allAsyncRoutes: SRoutes = [
     {
         path: '/syt',
         element: <Layout />,
@@ -92,7 +93,7 @@ export const allAsyncRoutes = [
                 path: '/syt/dashboard',
                 meta: {
                     icon: <HomeOutlined />,
-                    title: 'route:dashboard'
+                    title: '首页'
                 },
                 element: load(Dashboard)
             },

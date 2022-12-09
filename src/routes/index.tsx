@@ -2,20 +2,31 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 22:01:35
+ * @LastEditTime: 2022-12-09 16:31:10
  * @FilePath: \hrss-react-ts\src\routes\index.tsx
  * @Description: routes
  */
 import { selectUser } from '@/store/festures/user-slice'
 import { useSelector } from 'react-redux'
 import { useRoutes } from 'react-router-dom'
+import { filterRouter, SRoutes } from './filterRouter'
+import cloneDeep from 'lodash/cloneDeep'
+
 import { allAsyncRoutes, anyRoute, constantRoutes } from './router'
+
+const allRoutes = cloneDeep(allAsyncRoutes);
+
 export const UseAppRoutes = () => {
-    const routes1 = useSelector(selectUser)
-    console.log('routes1', routes1)
-    if(routes1.routes?.length){
-        
+    const userRoutes = useSelector(selectUser)
+    let resultRouter = [] as SRoutes
+    if (userRoutes.routes?.length) {
+        resultRouter = filterRouter(allAsyncRoutes, userRoutes.routes)
     }
-    const routes = useRoutes([...constantRoutes, ...anyRoute])
+    const routes = useRoutes([...constantRoutes, ...resultRouter, ...anyRoute])
     return routes
 }
+// 找到要渲染成左侧菜单的路由
+export const findSideBarRoutes = () => {
+    const currentIndex = allRoutes.findIndex((route) => route.path === "/syt");
+    return allRoutes[currentIndex].children as SRoutes;
+};

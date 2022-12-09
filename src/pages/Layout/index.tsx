@@ -2,51 +2,62 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 16:58:28
+ * @LastEditTime: 2022-12-09 17:00:24
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
 import styles from './index.module.scss'
 import {
-    DashboardOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    SettingOutlined,
-    UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, MenuProps } from 'antd';
 import React, { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { findSideBarRoutes } from '@/routes';
+import { SRoutes } from '@/routes/filterRouter';
 
 const { Header, Sider, Content } = Layout;
+type MenuItem = Required<MenuProps>["items"][number];
+
+function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: "group"): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    } as MenuItem;
+}
 export default function App() {
     const location = useLocation()
+    const navigate = useNavigate()
     // 设置默认高亮菜单
     const defaultSelectedKeys = location.pathname
-    const items = [
-        {
-            key: '/home/dashboard',
-            icon: <DashboardOutlined />,
-            label: <Link to="/home/dashboard">首页</Link>,
-        },
-        {
-            key: '/home/setting',
-            icon: <SettingOutlined />,
-            label: <Link to="/home/setting">设置</Link>,
-        },
-        {
-            key: '/home/employees',
-            icon: <UserOutlined />,
-            label: <Link to="/home/employees">员工</Link>,
-        },
-    ]
+    const routes = findSideBarRoutes() as SRoutes;
+
+    const items: MenuItem[] = routes.map(route => {
+        return getItem(
+            route.meta?.title,
+            route.path as string,
+            route.meta?.icon,
+            route.children?.map((item) => {
+                if (item.hidden) return null
+                return getItem(item?.meta?.title, item.path as string, item.meta?.icon)
+            })
+        )
+    })
     const [collapsed, setCollapsed] = useState(false);
+    const handleClick: MenuProps['onClick'] = (e) => {
+        navigate(e.key)
+    }
     return (
         <div className={styles.root}>
             <Layout>
                 <Sider theme='light' trigger={null} collapsible collapsed={collapsed}>
                     <div />
                     <Menu
+                        onClick={handleClick}
                         mode="inline"
                         defaultSelectedKeys={[defaultSelectedKeys]}
                         items={items}
