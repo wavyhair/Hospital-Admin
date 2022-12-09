@@ -115,7 +115,7 @@ export const allAsyncRoutes: SRoutes = [
                     icon: <ShopOutlined />,
                     title: '医院管理'
                 },
-                // element: load(Dashboard),
+                element: <Layout />,
                 children: [
                     {
                         name: 'Hospital/Set',
@@ -180,6 +180,7 @@ export const allAsyncRoutes: SRoutes = [
                     icon: <DatabaseOutlined />,
                     title: '数据管理'
                 },
+                element: <Layout />,
                 children: [
                     {
                         name: 'Cmn/Dict',
@@ -198,6 +199,7 @@ export const allAsyncRoutes: SRoutes = [
                     icon: <LockOutlined />,
                     title: '权限管理'
                 },
+                element: <Layout />,
                 children: [
                     {
                         name: 'Acl/User',
