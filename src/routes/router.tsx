@@ -1,6 +1,5 @@
 import Login from '@/pages/Login'
 import Layout from '@/pages/Layout'
-import { Navigate } from 'react-router-dom'
 import { FC, lazy, Suspense } from 'react'
 import Loading from '@/components/Loading'
 import {

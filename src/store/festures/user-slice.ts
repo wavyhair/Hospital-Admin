@@ -2,14 +2,13 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 17:29:55
+ * @LastEditTime: 2022-12-14 22:00:15
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
 import request from "@/utils/request";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginData, LoginRes, ReqGetUserInfoResponse } from "@/types/user";
-import { customHistory } from '@/utils/history'
 import { RootState } from "..";
 
 enum API {
