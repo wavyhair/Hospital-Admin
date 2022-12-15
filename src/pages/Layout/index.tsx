@@ -2,14 +2,13 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-15 14:37:28
+ * @LastEditTime: 2022-12-15 17:13:42
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
 
 import styles from './index.module.scss'
 import {
-  DownOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
@@ -85,13 +84,13 @@ export default function App() {
   })
   const [collapsed, setCollapsed] = useState(false)
   const handleClick: MenuProps['onClick'] = (e) => {
+    console.log('e', e)
     navigate(e.key)
   }
   return (
     <div className={styles.root}>
       <Layout>
         <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
-          <div />
           <Menu
             onClick={handleClick}
             mode="inline"
