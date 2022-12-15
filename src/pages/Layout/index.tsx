@@ -2,13 +2,14 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-15 13:16:19
+ * @LastEditTime: 2022-12-15 14:37:28
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
 
 import styles from './index.module.scss'
 import {
+  DownOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
@@ -107,8 +108,10 @@ export default function App() {
                 onClick: () => setCollapsed(!collapsed)
               }
             )}
-            <Dropdown overlay={menu}>
+            <Dropdown overlay={menu} arrow={{ pointAtCenter: true }}>
+
               <Avatar src={avatar || 'https://joeschmoe.io/api/v1/random'} shape="square" size={50} icon={<UserOutlined />} />
+
             </Dropdown>
           </Header>
           <Content>
