@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-14 22:08:54
+ * @LastEditTime: 2022-12-15 13:16:19
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -11,14 +11,15 @@ import styles from './index.module.scss'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  UserOutlined,
 } from '@ant-design/icons'
-import { Dropdown, Layout, Menu, MenuProps } from 'antd'
+import { Avatar, Dropdown, Layout, Menu, MenuProps } from 'antd'
 import React, { useState } from 'react'
-import {  Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { findSideBarRoutes } from '@/routes'
 import { SRoutes } from '@/routes/filterRouter'
-import { useAppSelector } from '@/store/hooks'
-import { selectUser } from '@/store/festures/user-slice'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { selectUser, logOut } from '@/store/festures/user-slice'
 
 const { Header, Sider, Content } = Layout
 type MenuItem = Required<MenuProps>['items'][number]
@@ -38,24 +39,34 @@ function getItem(
     type
   } as MenuItem
 }
+const LogOut = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    dispatch(logOut())
+    navigate('/login')
+  }
+  return <span onClick={handleClick}>
+    退出登录
+  </span>
+}
 const menu = (
-    <Menu
-      items={[
-        {
-          key: '1',
-          label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              1st menu item
-            </a>
-          ),
-        },
-      ]}
-    />
-  );
+  <Menu
+    items={[
+      {
+        key: 'LogOutBtn',
+        label: (
+          <LogOut />
+        ),
+      },
+    ]}
+  />
+);
 export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
-  const {name} = useAppSelector(selectUser)
+  const { avatar } = useAppSelector(selectUser)
   // 设置默认高亮菜单
   const defaultSelectedKeys = location.pathname
   const routes = findSideBarRoutes() as SRoutes
@@ -97,7 +108,7 @@ export default function App() {
               }
             )}
             <Dropdown overlay={menu}>
-              <span>{name}</span>
+              <Avatar src={avatar || 'https://joeschmoe.io/api/v1/random'} shape="square" size={50} icon={<UserOutlined />} />
             </Dropdown>
           </Header>
           <Content>

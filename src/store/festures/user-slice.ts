@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 16:23:09
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-14 22:00:15
+ * @LastEditTime: 2022-12-15 13:24:12
  * @FilePath: \hrss-react-ts\src\store\festures\user-slice.ts
  * @Description:
  */
@@ -52,6 +52,15 @@ export const userSlice = createSlice({
             const token = action.payload;
             state.token = token
             localStorage.setItem('hrss_react_key', token)
+        },
+        logOut: (state) => {
+            state.token = ''
+            state.avatar = ''
+            state.avatar = ''
+            state.name = ''
+            state.roles = []
+            state.routes = []
+            localStorage.removeItem('hrss_react_key')
         }
     },
     extraReducers(builder) {
@@ -60,14 +69,14 @@ export const userSlice = createSlice({
             localStorage.setItem('hrss_react_key', payload.data)
         })
             .addCase(getUserInfo.fulfilled, (state, { payload }) => {
-                state.avatar = payload.avatar
-                state.name = payload.name
-                state.routes = payload.routes
+                state.avatar = payload?.avatar
+                state.name = payload?.name
+                state.routes = payload?.routes
             })
     }
 })
 export default userSlice.reducer
-export const { setToken } = userSlice.actions
+export const { setToken, logOut } = userSlice.actions
 
 
 // 暴露用于读取当前状态数据的select函数

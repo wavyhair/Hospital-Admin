@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 17:15:40
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-15 10:47:16
+ * @LastEditTime: 2022-12-15 13:24:28
  * @FilePath: \hrss-react-ts\src\components\withAuthorization\index.tsx
  * @Description: 
  */
@@ -69,7 +69,6 @@ function withAuthorization(WrappedComponent: FC) { // FunctionComponent
             // 判断是否是微信扫码登陆
             const params = new URLSearchParams(document.location.search.substring(1));
             const token = params.get('token');
-
             if (token) {
                 // 微信扫码登陆，获取到token，直接跳转到首页
                 dispatch(setToken(token))
