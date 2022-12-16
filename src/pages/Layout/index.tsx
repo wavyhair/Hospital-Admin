@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-16 22:08:23
+ * @LastEditTime: 2022-12-16 22:27:51
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -11,7 +11,7 @@ import styles from './index.module.scss'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
+  UserOutlined
 } from '@ant-design/icons'
 import { Avatar, Dropdown, Layout, Menu, MenuProps } from 'antd'
 import React, { useState } from 'react'
@@ -47,22 +47,14 @@ const LogOut = () => {
     dispatch(logOut())
     navigate('/login')
   }
-  return <span onClick={handleClick}>
-    退出登录
-  </span>
+  return <span onClick={handleClick}>退出登录</span>
 }
-const menu = (
-  <Menu
-    items={[
+const items: MenuProps['items'] = [
       {
         key: 'LogOutBtn',
-        label: (
-          <LogOut />
-        ),
-      },
-    ]}
-  />
-);
+        label: <LogOut />
+      }
+]
 export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -70,7 +62,7 @@ export default function App() {
   // 设置默认高亮菜单
   const defaultSelectedKeys = location.pathname
   const routes = findSideBarRoutes() as SRoutes
-  const items: MenuItem[] = routes.map((route) => {
+  const menuItems: MenuItem[] = routes.map((route) => {
     return getItem(
       route.meta?.title,
       route.path as string,
@@ -93,7 +85,7 @@ export default function App() {
             onClick={handleClick}
             mode="inline"
             defaultSelectedKeys={[defaultSelectedKeys]}
-            items={items}
+            items={menuItems}
           />
         </Sider>
         <Layout>
@@ -105,13 +97,22 @@ export default function App() {
                 onClick: () => setCollapsed(!collapsed)
               }
             )}
-            <Dropdown overlay={menu} arrow={{ pointAtCenter: true }}>
-
-              <Avatar src={avatar || 'https://joeschmoe.io/api/v1/random'} shape="square" size={50} icon={<UserOutlined />} />
-
+            <Dropdown menu={{items}} arrow={{ pointAtCenter: true }}>
+              <Avatar
+                src={avatar || 'https://joeschmoe.io/api/v1/random'}
+                shape="square"
+                size={50}
+                icon={<UserOutlined />}
+              />
             </Dropdown>
           </Header>
-          <Content>
+          <Content
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 780
+            }}
+          >
             <Outlet />
           </Content>
         </Layout>

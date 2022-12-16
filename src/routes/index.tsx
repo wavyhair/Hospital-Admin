@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-16 22:08:47
+ * @LastEditTime: 2022-12-16 22:29:00
  * @FilePath: \hrss-react-ts\src\routes\index.tsx
  * @Description: routes
  */
@@ -16,7 +16,6 @@ let sideBarRoutes:SRoutes = []
 export const UseAppRoutes = () => {
     const userRoutes = useSelector(selectUser)
     let resultRouter = [] as SRoutes
-    console.log('userRoutes',userRoutes);
     if (userRoutes.routes?.length) {
         resultRouter = filterRouter(allAsyncRoutes, userRoutes.routes)
         sideBarRoutes = resultRouter

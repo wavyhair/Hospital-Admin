@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 11:36:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-08 21:48:35
+ * @LastEditTime: 2022-12-16 22:12:04
  * @FilePath: \hrss-react-ts\src\index.tsx
  * @Description: index
  */
@@ -15,7 +15,7 @@ import { Provider } from 'react-redux'
 import App from './App'
 
 // import 'antd/dist/antd.css'; // issue下有描述原因： react-script 升级到 5.0.0 之后，所有通过 create-react-app 创建的项目，引入 antd.css 之后都会看到这个警告
-import 'antd/dist/antd.min.css'
+// import 'antd/dist/antd.min.css' 升级 5.0 不需要引入
 import './styles/index.css'
 
 import reportWebVitals from './reportWebVitals'
