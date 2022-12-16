@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-15 17:13:42
+ * @LastEditTime: 2022-12-16 22:08:23
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -70,7 +70,6 @@ export default function App() {
   // 设置默认高亮菜单
   const defaultSelectedKeys = location.pathname
   const routes = findSideBarRoutes() as SRoutes
-
   const items: MenuItem[] = routes.map((route) => {
     return getItem(
       route.meta?.title,
@@ -84,7 +83,6 @@ export default function App() {
   })
   const [collapsed, setCollapsed] = useState(false)
   const handleClick: MenuProps['onClick'] = (e) => {
-    console.log('e', e)
     navigate(e.key)
   }
   return (
