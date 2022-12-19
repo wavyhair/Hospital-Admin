@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 13:13:23
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-10-23 09:31:11
+ * @LastEditTime: 2022-12-19 10:56:26
  * @FilePath: \hrss-react-ts\src\pages\404\index.tsx
  * @Description: 404
  */
@@ -18,7 +18,7 @@ function NotFound() {
             title="404"
             subTitle="找不到页面"
             extra={
-                <Button type="primary" onClick={() => navigate("/home/dashboard")}>
+                <Button type="primary" onClick={() => navigate("/syt/dashboard")}>
                     返回首页
                 </Button>
             }
