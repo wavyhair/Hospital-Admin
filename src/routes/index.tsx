@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 15:41:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-16 22:29:00
+ * @LastEditTime: 2022-12-19 11:00:17
  * @FilePath: \hrss-react-ts\src\routes\index.tsx
  * @Description: routes
  */
@@ -11,8 +11,8 @@ import { useSelector } from 'react-redux'
 import { useRoutes } from 'react-router-dom'
 import { filterRouter, SRoutes } from './filterRouter'
 
-import { allAsyncRoutes, anyRoute } from './router'
-let sideBarRoutes:SRoutes = []
+import { allAsyncRoutes, anyRoute, constantRoutes } from './router'
+let sideBarRoutes: SRoutes = []
 export const UseAppRoutes = () => {
     const userRoutes = useSelector(selectUser)
     let resultRouter = [] as SRoutes
@@ -20,7 +20,7 @@ export const UseAppRoutes = () => {
         resultRouter = filterRouter(allAsyncRoutes, userRoutes.routes)
         sideBarRoutes = resultRouter
     }
-    const routes = useRoutes([...resultRouter, ...anyRoute])
+    const routes = useRoutes([...resultRouter, ...constantRoutes, ...anyRoute])
     return routes
 }
 // 找到要渲染成左侧菜单的路由
