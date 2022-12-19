@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-16 22:27:51
+ * @LastEditTime: 2022-12-19 11:46:21
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -14,7 +14,7 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 import { Avatar, Dropdown, Layout, Menu, MenuProps } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { findSideBarRoutes } from '@/routes'
 import { SRoutes } from '@/routes/filterRouter'
@@ -50,17 +50,29 @@ const LogOut = () => {
   return <span onClick={handleClick}>退出登录</span>
 }
 const items: MenuProps['items'] = [
-      {
-        key: 'LogOutBtn',
-        label: <LogOut />
-      }
+  {
+    key: 'LogOutBtn',
+    label: <LogOut />
+  }
 ]
-export default function App() {
+export default function AppLayout() {
   const location = useLocation()
   const navigate = useNavigate()
+
   const { avatar } = useAppSelector(selectUser)
+
+  const [openKeys, setOpenKeys] = useState('')
+  const [selectedKeys, setSelectedKeys] = useState('')
+  useEffect(() => {
+    setOpenKeys(location.pathname.split('/').splice(0, 3).join('/'))
+    setSelectedKeys(location.pathname)
+  }, [location.pathname])
+
+  const onOpenChange = (openKeys: string[]) => {
+    setOpenKeys(openKeys[1].split('/').splice(0, 3).join('/'))
+    setSelectedKeys(openKeys[1])
+  }
   // 设置默认高亮菜单
-  const defaultSelectedKeys = location.pathname
   const routes = findSideBarRoutes() as SRoutes
   const menuItems: MenuItem[] = routes.map((route) => {
     return getItem(
@@ -84,8 +96,10 @@ export default function App() {
           <Menu
             onClick={handleClick}
             mode="inline"
-            defaultSelectedKeys={[defaultSelectedKeys]}
+            openKeys={[openKeys]}
+            selectedKeys={[selectedKeys]}
             items={menuItems}
+            onOpenChange={onOpenChange}
           />
         </Sider>
         <Layout>
@@ -97,7 +111,7 @@ export default function App() {
                 onClick: () => setCollapsed(!collapsed)
               }
             )}
-            <Dropdown menu={{items}} arrow={{ pointAtCenter: true }}>
+            <Dropdown menu={{ items }} arrow={{ pointAtCenter: true }}>
               <Avatar
                 src={avatar || 'https://joeschmoe.io/api/v1/random'}
                 shape="square"
