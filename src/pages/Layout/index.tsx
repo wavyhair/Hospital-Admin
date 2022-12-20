@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-20 11:05:38
+ * @LastEditTime: 2022-12-20 11:12:48
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -69,7 +69,7 @@ export default function AppLayout() {
   }, [location.pathname])
 
   const onOpenChange = (openKeys: string[]) => {
-    setOpenKeys(openKeys[1].split('/').splice(0, 3).join('/'))
+    setOpenKeys(openKeys[1]?.split('/').splice(0, 3).join('/'))
     setSelectedKeys(openKeys[1])
   }
   // 设置默认高亮菜单
