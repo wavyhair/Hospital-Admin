@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-19 11:46:21
+ * @LastEditTime: 2022-12-20 11:05:38
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -13,7 +13,7 @@ import {
   MenuUnfoldOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import { Avatar, Dropdown, Layout, Menu, MenuProps } from 'antd'
+import { Avatar, Card, Dropdown, Layout, Menu, MenuProps } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { findSideBarRoutes } from '@/routes'
@@ -120,17 +120,14 @@ export default function AppLayout() {
               />
             </Dropdown>
           </Header>
-          <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 780
-            }}
-          >
-            <Outlet />
-          </Content>
+          <Card>
+            <Content>
+              <Outlet />
+            </Content>
+          </Card>
+
         </Layout>
       </Layout>
-    </div>
+    </div >
   )
 }
