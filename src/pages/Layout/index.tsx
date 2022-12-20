@@ -2,8 +2,8 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-20 16:53:25
- * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
+ * @LastEditTime: 2022-12-20 21:11:08
+ * @FilePath: \Hospital-Admin\src\pages\Layout\index.tsx
  * @Description: Layout
  */
 
@@ -63,11 +63,13 @@ export default function AppLayout() {
 
   const [openKeys, setOpenKeys] = useState('')
   const [selectedKeys, setSelectedKeys] = useState('')
-
-
-  useEffect(() => {
+  const setHeightLight=()=>{
     setOpenKeys(location.pathname.split('/').splice(0, 3).join('/'))
     setSelectedKeys(location.pathname)
+  }
+
+  useEffect(() => {
+    setHeightLight()
   }, [location.pathname])
 
   const onOpenChange = (openKeys: string[]) => {
@@ -94,6 +96,9 @@ export default function AppLayout() {
   const collapsedChange = () => {
     setCollapsed(!collapsed)
   }
+  useEffect(()=>{
+    setHeightLight()
+  },[collapsed])
   return (
     <div className={styles.root}>
       <Layout>
