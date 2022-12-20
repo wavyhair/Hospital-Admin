@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 20:34:56
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-20 11:12:48
+ * @LastEditTime: 2022-12-20 16:53:25
  * @FilePath: \hrss-react-ts\src\pages\Layout\index.tsx
  * @Description: Layout
  */
@@ -63,6 +63,8 @@ export default function AppLayout() {
 
   const [openKeys, setOpenKeys] = useState('')
   const [selectedKeys, setSelectedKeys] = useState('')
+
+
   useEffect(() => {
     setOpenKeys(location.pathname.split('/').splice(0, 3).join('/'))
     setSelectedKeys(location.pathname)
@@ -89,6 +91,9 @@ export default function AppLayout() {
   const handleClick: MenuProps['onClick'] = (e) => {
     navigate(e.key)
   }
+  const collapsedChange = () => {
+    setCollapsed(!collapsed)
+  }
   return (
     <div className={styles.root}>
       <Layout>
@@ -108,7 +113,7 @@ export default function AppLayout() {
               collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
                 className: 'trigger',
-                onClick: () => setCollapsed(!collapsed)
+                onClick: collapsedChange
               }
             )}
             <Dropdown menu={{ items }} arrow={{ pointAtCenter: true }}>
