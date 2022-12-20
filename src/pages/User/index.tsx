@@ -2,117 +2,130 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 16:31:20
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-20 10:41:38
+ * @LastEditTime: 2022-12-20 16:10:07
  * @FilePath: \hrss-react-ts\src\pages\User\index.tsx
  * @Description: 
  */
 
-import React, { useState } from 'react';
-import { Button, Col, Form, Input, Row, Space, Table, Tag } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Input, Row, Space, Table } from 'antd';
 
 import type { ColumnsType } from 'antd/es/table';
-interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
-}
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-        ),
-    },
-];
+import { getUserList } from '@/api/acl/user';
+import { UserItem, UserList } from '@/api/acl/types/user';
+import { DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
 
-const data: DataType[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-];
+
+
 
 
 export default function User() {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm()
+    const [pageSize, setPageSize] = useState(5)
+    const [current, setCurrent] = useState(1)
+    const [userList, setUserList] = useState<UserList>()
+    const [total, setTotal] = useState(0)
+    const [loading, setLoading] = useState(true)
 
+    const initUserList = async (page = current, limit = pageSize) => {
+        setLoading(true)
+        const username = form.getFieldValue('username')
+        const res = await getUserList({ page, limit, username })
+        setLoading(false)
+        setUserList(res.data.records)
+        setTotal(res.data.total)
+    }
+
+    const onReset = () => {
+        form.resetFields()
+        initUserList()
+    }
+    const columns: ColumnsType<UserItem> = [
+        {
+            title: '序号',
+            dataIndex: 'hoscode',
+            render(value, row, index) {
+                return index + 1
+            },
+            width: 100,
+            align: 'center',
+        },
+        {
+            title: '用户名',
+            dataIndex: 'username',
+        },
+        {
+            title: '用户昵称',
+            dataIndex: 'nickName',
+        },
+        {
+            title: '角色列表',
+            dataIndex: 'roleName',
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'createTime',
+        },
+        {
+            title: '更新时间',
+            dataIndex: 'updateTime',
+        },
+        {
+            title: '操作',
+            render(row: UserItem) {
+                return (
+                    <>
+                        <Button
+                            type="primary"
+                            icon={<UserOutlined />}
+                            onClick={() => handleAddUser(3, row)}
+                        ></Button>
+                        <Button
+                            type="primary"
+                            icon={<EditOutlined />}
+                            className="ml"
+                            onClick={() => handleAddUser(2, row)}
+                        ></Button>
+                        <Button
+                            type="primary"
+                            icon={<DeleteOutlined />}
+                            className="ml"
+                            onClick={() => handleRemoveUser(row.id)}
+                            danger
+                        ></Button>
+                    </>
+                )
+            },
+            width: 200,
+            fixed: 'right',
+        },
+    ]
+    useEffect(() => {
+        initUserList()
+    }, [])
+    const handleAddUser = (t: number, tt: UserItem) => { }
+    const handleRemoveUser = (id: number) => { }
     return (
         <>
+            {/* 搜索区域 */}
             <Form
                 layout="inline"
                 form={form}
+                onFinish={() => { initUserList() }}
             >
-                <Form.Item label="用户名">
+                <Form.Item name="username" label="用户名">
                     <Input placeholder="请输入用户名" />
                 </Form.Item>
                 <Form.Item>
                     <Space>
-                        <Button type="primary">查询</Button>
-                        <Button >清空</Button>
+                        <Button type="primary" htmlType="submit">查询</Button>
+                        <Button onClick={onReset}>清空</Button>
                     </Space>
 
                 </Form.Item>
             </Form>
+            {/* 操作按钮 */}
             <Row style={{ margin: '8px 0 8px 0' }}>
                 <Col span={24}>
                     <Space>
@@ -121,7 +134,24 @@ export default function User() {
                     </Space>
                 </Col>
             </Row>
-            <Table columns={columns} dataSource={data} />
+            {/* table */}
+
+            <Table
+                loading={loading}
+                pagination={{
+                    pageSize,
+                    current,
+                    total,
+                    showSizeChanger: true,
+                    showQuickJumper: true,
+                    pageSizeOptions: [5, 10, 15, 20],
+                    showTotal: (total) => `总共${total}条`,
+                    onChange: initUserList
+                }}
+                rowKey='id'
+                columns={columns}
+                dataSource={userList}
+            />
         </>
 
     )
