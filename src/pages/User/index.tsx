@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 16:31:20
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-20 16:10:07
+ * @LastEditTime: 2022-12-21 15:08:01
  * @FilePath: \hrss-react-ts\src\pages\User\index.tsx
  * @Description: 
  */
@@ -126,7 +126,7 @@ export default function User() {
                 </Form.Item>
             </Form>
             {/* 操作按钮 */}
-            <Row style={{ margin: '8px 0 8px 0' }}>
+            <Row style={{ margin: '8px 0 10px 0' }}>
                 <Col span={24}>
                     <Space>
                         <Button type="primary">添加</Button>
