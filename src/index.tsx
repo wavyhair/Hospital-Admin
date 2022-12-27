@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-10-20 11:36:55
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-19 14:39:42
+ * @LastEditTime: 2022-12-27 14:42:53
  * @FilePath: \hrss-react-ts\src\index.tsx
  * @Description: index
  */
@@ -10,7 +10,7 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import { customHistory } from '@/utils/history'
 
 import { ConfigProvider } from 'antd';
-
+import zhCN from 'antd/locale/zh_CN';
 import ReactDOM from 'react-dom/client'
 import store from './store'
 import { Provider } from 'react-redux'
@@ -26,11 +26,13 @@ root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <HistoryRouter history={customHistory}>
-      <ConfigProvider theme={{
-        token: {
-          colorPrimary: '#00b96b',
-        },
-      }}>
+      <ConfigProvider
+        locale={zhCN}
+        theme={{
+          token: {
+            colorPrimary: '#00b96b',
+          },
+        }}>
         <App />
       </ConfigProvider>
     </HistoryRouter>
