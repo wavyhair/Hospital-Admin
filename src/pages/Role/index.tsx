@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 16:30:45
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-27 14:40:18
+ * @LastEditTime: 2022-12-27 14:52:26
  * @FilePath: \hrss-react-ts\src\pages\Role\index.tsx
  * @Description: 
  */
@@ -43,9 +43,12 @@ export default function Role() {
     const handleAddUser = (type: UserType, row?: UserItem) => { }
     const handleRemoveUser = (id: any) => { }
     /**
-     * 清空
+     * 重置
      */
-    const onReset = () => { }
+    const onReset = () => {
+        searchForm.resetFields()
+        initUserList()
+    }
     const columns: ColumnsType<UserItem> = [
         {
             title: '序号',
@@ -98,8 +101,8 @@ export default function Role() {
                 form={searchForm}
                 onFinish={() => { initUserList() }}
             >
-                <Form.Item name="username" label="用户名">
-                    <Input placeholder="请输入用户名" />
+                <Form.Item name="roleName" label="用户名">
+                    <Input placeholder="请输入角色名" type="text" />
                 </Form.Item>
                 <Form.Item>
                     <Space>
