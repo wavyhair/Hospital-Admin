@@ -2,7 +2,7 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 16:31:20
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-26 14:11:18
+ * @LastEditTime: 2022-12-27 09:49:22
  * @FilePath: \hrss-react-ts\src\pages\User\index.tsx
  * @Description: 
  */
@@ -267,7 +267,6 @@ export default function User() {
                         <Col span={24}>
                             <Space>
                                 <Button type="primary" onClick={() => handleAddUser(1)}>添加</Button>
-                                <Button >批量删除</Button>
                             </Space>
                         </Col>
                     </Row>
