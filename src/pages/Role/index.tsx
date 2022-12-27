@@ -2,30 +2,41 @@
  * @Author: CHENJIE
  * @Date: 2022-12-08 16:30:45
  * @LastEditors: CHENJIE
- * @LastEditTime: 2022-12-27 10:27:06
+ * @LastEditTime: 2022-12-27 14:40:18
  * @FilePath: \hrss-react-ts\src\pages\Role\index.tsx
  * @Description: 
  */
 
-import type { RoleItemType, UserItem, UserType } from "@/api/acl/types/user"
+import { getRoleList } from "@/api/acl/role"
+import type { RoleItemType, UserItem, UserList, UserType } from "@/api/acl/types/user"
 import { DeleteOutlined, EditOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Col, Form, Input, Modal, Row, Space, Table } from "antd"
 import type { ColumnsType } from "antd/es/table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Role() {
     const [searchForm] = Form.useForm()
     const [userForm] = Form.useForm()
     const [loading, setLoading] = useState(false)
-    const [pageSize] = useState(5)
-    const [current] = useState(1)
-    const [total] = useState(0)
+    const [pageSize, setPageSize] = useState(5)
+    const [current, setCurrent] = useState(1)
+    const [total, setTotal] = useState(0)
     const [modalTitle, setModalTitle] = useState('添加用户')
-    const [userList, setUserList] = useState([])
+    const [userList, setUserList] = useState<UserList>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [user, setUser] = useState<UserItem>()
 
-    const initUserList = () => { }
+    useEffect(() => {
+        initUserList()
+    }, [])
+    const initUserList = async (page = current, limit = pageSize) => {
+        setPageSize(limit)
+        setCurrent(page)
+        const { roleName } = searchForm.getFieldsValue()
+        const res = await getRoleList({ page, limit, roleName })
+        setUserList(res.data.records)
+        setTotal(res.data.total)
+    }
     const handleOk = () => { }
     const handleCancel = () => { }
     const handleAuth = (row: RoleItemType) => { }
